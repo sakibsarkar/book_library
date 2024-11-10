@@ -1,12 +1,14 @@
 import { z } from "zod";
 
-const create = z.object({
-  title: z.string(),
-  genre: z.string(),
-  publishedYear: z.number().int().min(0),
-  totalCopies: z.number().int().min(0),
-  availableCopies: z.number().int().min(0),
-});
+const create = z
+  .object({
+    title: z.string(),
+    genre: z.string(),
+    publishedYear: z.number().int().min(0),
+    totalCopies: z.number().int().min(0),
+    availableCopies: z.number().int().min(0),
+  })
+  .strict();
 
 const update = z
   .object({

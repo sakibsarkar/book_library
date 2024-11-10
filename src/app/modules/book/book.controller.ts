@@ -30,7 +30,7 @@ const getBookByBookId = catchAsyncError(async (req, res) => {
     message: result
       ? "Book retrieved successfully"
       : `Book with id '${bookId}' not found`,
-    data: result,
+    data: result || undefined,
   });
 });
 
