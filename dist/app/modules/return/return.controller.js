@@ -12,22 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const app_1 = __importDefault(require("./app"));
-const prisma_1 = __importDefault(require("./app/config/prisma"));
-const port = process.env.PORT || 5000;
-const server = http_1.default.createServer(app_1.default);
-const appServer = server.listen(port);
-const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield prisma_1.default.$connect();
-        console.log("database connnected", port);
+exports.returnController = void 0;
+const catchAsyncError_1 = require("../../../utils/catchAsyncError");
+const sendResponse_1 = __importDefault(require("../../../utils/sendResponse"));
+const AppError_1 = __importDefault(require("../../errors/AppError"));
+const return_service_1 = __importDefault(require("./return.service"));
+const returnBook = (0, catchAsyncError_1.catchAsyncError)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const borrowId = req.body.borrowId;
+    if (!borrowId) {
+        throw new AppError_1.default(400, "Borrow id is required");
     }
-    catch (error) {
-        console.log("database connnected", error);
-        appServer.close(() => {
-            process.exit(1);
-        });
-    }
-});
-startServer();
+    yield return_service_1.default.returnBook(borrowId);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: 200,
+        message: "Book returned successfully",
+        data: undefined,
+    });
+}));
+exports.returnController = { returnBook };

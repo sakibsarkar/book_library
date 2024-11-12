@@ -1,4 +1,5 @@
 import prisma from "../../config/prisma";
+import AppError from "../../errors/AppError";
 import { IMember } from "./member.interface";
 
 const createMember = async (data: IMember) => {
@@ -27,7 +28,7 @@ const updateMember = async (id: string, data: Partial<IMember>) => {
     },
   });
   if (!isExist) {
-    throw new Error(`Member with id '${id}' not found`);
+    throw new AppError(404, `Member with id '${id}' not found`);
   }
   const result = await prisma.member.update({
     where: {
@@ -45,7 +46,7 @@ const deleteMember = async (id: string) => {
     },
   });
   if (!isExist) {
-    throw new Error(`Member with id '${id}' not found`);
+    throw new AppError(404, `Member with id '${id}' not found`);
   }
   const result = await prisma.member.delete({
     where: {
@@ -60,5 +61,5 @@ export const memberService = {
   getMembers,
   getMemberByMemberId,
   updateMember,
-  deleteMember
+  deleteMember,
 };

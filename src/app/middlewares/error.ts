@@ -8,26 +8,19 @@ import handleZodError from "../errors/handleZodError";
 import { IErrorSources } from "../interface/error";
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
-  let message = "Something went wrong!";
-  let statusCode = 500;
-  let errorMessages: IErrorSources = [
-    {
-      path: "",
-      message: "Something went wrong",
-    },
-  ];
+  let message = error?.message || "Something went wrong!";
+  let statusCode = error?.statusCode || 500;
+  let errorMessages: IErrorSources = [];
 
-  if (error instanceof ZodError) {
+  if (error instanceof AppError) {
+    statusCode = error?.statusCode || 400;
+    message = error.message;
+    errorMessages = [];
+  } else if (error instanceof ZodError) {
     const simpleErr = handleZodError(error);
     statusCode = simpleErr?.statusCode;
     message = simpleErr?.message;
     errorMessages = simpleErr?.errorSources;
-  } else if (error instanceof AppError) {
-    statusCode = error?.statusCode;
-    message = error.message;
-    errorMessages = [];
-  } else if (error instanceof Error) {
-    message = error.message;
   }
 
   return res.status(statusCode).json({

@@ -16,13 +16,15 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/api", router);
-app.get("/", async (req, res) => {
-  res.send("Hello from server");
+app.get("/", async (_req, res) => {
+  res.send({
+    success: true,
+    statusCode: 200,
+    message: "Hello from server",
+  });
 });
 // 404 Handler
-
 app.use(notFound);
-
 app.use(globalErrorHandler);
 
 export default app;

@@ -5,6 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --env-file=.env src/server.ts",
+    "postinstall": "prisma generate",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "vercel-build": "echo hello"

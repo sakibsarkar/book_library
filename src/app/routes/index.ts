@@ -1,8 +1,9 @@
 import { Router } from "express";
 import authorRute from "../modules/author/author.route";
 import bookRute from "../modules/book/book.route";
-import memberRoutes from "../modules/member/member.route";
 import borrowRoute from "../modules/borrow/borro.route";
+import memberRoutes from "../modules/member/member.route";
+import returnRoute from "../modules/return/return.route";
 
 const router = Router();
 
@@ -22,6 +23,10 @@ const moduleRoute = [
   {
     path: "/borrow",
     route: borrowRoute,
+  },
+  {
+    path: "/return",
+    route: returnRoute,
   },
 ];
 

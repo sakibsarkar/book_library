@@ -47,9 +47,22 @@ const deleteMember = catchAsyncError(async (req, res) => {
   });
 });
 
+const updateMember = catchAsyncError(async (req, res) => {
+  const memberId = req.params.memberId as string;
+  const { body } = req;
+  const result = await memberService.updateMember(memberId, body);
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Member updated successfully",
+    data: result,
+  });
+});
+
 export const memberController = {
   createMember,
   getMembers,
   getMemberByMemberId,
   deleteMember,
+  updateMember,
 };

@@ -12,22 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const app_1 = __importDefault(require("./app"));
-const prisma_1 = __importDefault(require("./app/config/prisma"));
-const port = process.env.PORT || 5000;
-const server = http_1.default.createServer(app_1.default);
-const appServer = server.listen(port);
-const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield prisma_1.default.$connect();
-        console.log("database connnected", port);
+const prisma_1 = __importDefault(require("../../config/prisma"));
+const AppError_1 = __importDefault(require("../../errors/AppError"));
+const returnBook = (borrowId) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExist = yield prisma_1.default.borrow.findUnique({
+        where: {
+            borrowId,
+        },
+    });
+    if (!isExist) {
+        throw new AppError_1.default(404, `No borrow record found with borrow id '${borrowId}'`);
     }
-    catch (error) {
-        console.log("database connnected", error);
-        appServer.close(() => {
-            process.exit(1);
-        });
-    }
+    const result = yield prisma_1.default.borrow.update({
+        where: {
+            borrowId: borrowId,
+        },
+        data: {
+            returnDate: new Date(),
+        },
+    });
+    return result;
 });
-startServer();
+const returnService = {
+    returnBook,
+};
+exports.default = returnService;

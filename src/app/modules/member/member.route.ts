@@ -13,7 +13,7 @@ router.get("/:memberId", memberController.getMemberByMemberId);
 router.put(
   "/:memberId",
   validSchema(memberValidationSchema.update),
-  memberController.getMemberByMemberId
+  memberController.updateMember
 );
 router.delete("/:memberId", memberController.deleteMember);
 

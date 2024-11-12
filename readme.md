@@ -1,27 +1,25 @@
-# On the go Server
+# Book Library 📚
 
-## Introduction
+## Project Description
 
-Welcome to the Project Name repository! This README file will guide you through the steps required to set up and run the project on your local computer.
+Book Library is a straightforward library management system designed to streamline the borrowing and returning of books. Members can borrow books for a set period and are notified of overdue books if they fail to return them within 14 days. This system ensures efficient tracking of borrowed books and due dates, providing users with a smooth experience in managing their borrowed items.
 
-## Getting Started
+## Live URL
 
-To get started with the project, follow the instructions below:
+[Book Library Backend](https://booklibrary20.vercel.app/)
 
-### Prerequisites
+## Technology Stack & Packages
 
-Make sure you have the following software installed on your machine:
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB (Mongoose for MongoDB ORM)
+- **Other Packages**:
+  - `dotenv`: For environment variable management
+  - `cors`: To handle cross-origin requests
 
-- Git
-- Node.js (v20.9.0 recommended)
-- Yarn
-
-### Cloning the Repository
-
-First, clone the repository using the following command:
+## Setup Instructions
 
 ```
-git clone https://github.com/sakibsarkar/on_the_go_backend.git
+git clone https://github.com/sakibsarkar/book_library.git
 ```
 
 ### Installing Dependencies
@@ -38,21 +36,7 @@ yarn install
 Create a .env file in the root directory of the project and add your MongoDB credentials:
 
 ```
-MONGO_NAME=your mongodb username
-MONGO_PASS=your mongodb password
-MONGO_DB=your database name
-NODE_ENV="development"
-JWT_ACCESS_SECRET=secret key for jwt token
-JWT_REFRESH_SECRET=secret key for jwt token
-CN_Cloud_name=Clodinary cloud name
-CN_Api_key=Clodinary api key
-CN_Api_secret=Clodinary api secret
-CN_Folder=Clodinary folder name
-MAILPASS=gmail id app password
-MAIL=email address
-SIGNATURE_KEY=dbb74894e82415a2f7ff0ec3a97e4183
-STORE_ID=aamarpaytest
-PAYMENT_URL= https://sandbox.aamarpay.com/jsonpost.php
+DATABASE_URL="YOUR POSTGRES DB URL"
 ```
 
 ### Running the Project
